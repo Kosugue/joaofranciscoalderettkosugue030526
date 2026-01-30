@@ -1,4 +1,4 @@
-package com.seplagseletivo.projeto_backend.service;
+package com.seplagseletivo.projeto_backend;
 
 import com.seplagseletivo.projeto_backend.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
