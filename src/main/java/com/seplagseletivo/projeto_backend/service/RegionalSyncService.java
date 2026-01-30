@@ -1,7 +1,7 @@
 package com.seplagseletivo.projeto_backend.service;
 
 import com.seplagseletivo.projeto_backend.dto.RegionalDTO;
-import com.seplagseletivo.projeto_backend.entity.Regional;
+import com.seplagseletivo.projeto_backend.model.Regional;
 import com.seplagseletivo.projeto_backend.repository.RegionalRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

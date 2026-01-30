@@ -1,6 +1,6 @@
 package com.seplagseletivo.projeto_backend.service;
 
-import com.seplagseletivo.projeto_backend.entity.Album;
+import com.seplagseletivo.projeto_backend.model.Album;
 import com.seplagseletivo.projeto_backend.repository.AlbumRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,6 +1,6 @@
 package com.seplagseletivo.projeto_backend.controller;
 
-import com.seplagseletivo.projeto_backend.entity.Album;
+import com.seplagseletivo.projeto_backend.model.Album;
 import com.seplagseletivo.projeto_backend.service.AlbumService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

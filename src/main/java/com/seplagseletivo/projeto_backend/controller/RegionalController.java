@@ -1,6 +1,6 @@
 package com.seplagseletivo.projeto_backend.controller;
 
-import com.seplagseletivo.projeto_backend.entity.Regional;
+import com.seplagseletivo.projeto_backend.model.Regional;
 import com.seplagseletivo.projeto_backend.service.RegionalSyncService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

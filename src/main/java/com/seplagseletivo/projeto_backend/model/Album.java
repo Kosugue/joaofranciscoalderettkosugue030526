@@ -1,4 +1,4 @@
-package com.seplagseletivo.projeto_backend.entity;
+package com.seplagseletivo.projeto_backend.model;
 
 import jakarta.persistence.*;
 

@@ -1,6 +1,6 @@
 package com.seplagseletivo.projeto_backend.service;
 
-import com.seplagseletivo.projeto_backend.entity.Artist;
+import com.seplagseletivo.projeto_backend.model.Artist;
 import com.seplagseletivo.projeto_backend.repository.ArtistRepository;
 import org.springframework.stereotype.Service;
 
