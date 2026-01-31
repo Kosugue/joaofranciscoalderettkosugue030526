@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Serviço da API Spring Boot
+  app:
+    build: .
+    container_name: music-backend-api
+    ports:
+      - "8080:8080" # Porta Host:Container
+    environment:
+      # Configurações do Banco H2 (Em memória)
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:musicdb
+
+      # Configurações para conectar ao MinIO (container abaixo)
+      # Nota: Usamos 'http://minio:9000' porque 'minio' é o nome do serviço abaixo
+      - MINIO_URL=http://minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+
+      # Perfil do Spring (opcional)
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - minio
+    networks:
+      - music-network
+
+  # Serviço do MinIO (Armazenamento de Imagens S3 Compatible)
+  minio:
+    image: minio/minio:latest
+    container_name: minio-server
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000" # Porta da API
+      - "9001:9001" # Porta do Console Web
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio_data:/data # Persistência de dados
+    networks:
+      - music-network
+
+# Definição de volumes para persistência
+volumes:
+  minio_data:
+
+# Rede interna para comunicação entre os containers
+networks:
+  music-network:
+    driver: bridge
