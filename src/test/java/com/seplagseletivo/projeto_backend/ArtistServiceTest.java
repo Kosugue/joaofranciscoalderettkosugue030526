@@ -31,4 +31,5 @@ class ArtistServiceTest {
         artistService.findAllSorted("desc");
         verify(artistRepository).findAllByOrderByNameDesc();
     }
+
 }
