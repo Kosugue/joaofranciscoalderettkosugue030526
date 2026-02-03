@@ -1,6 +1,10 @@
 package com.seplagseletivo.projeto_backend;
 
 import com.seplagseletivo.projeto_backend.repository.UserRepository;
+
+import com.seplagseletivo.projeto_backend.model.User;
+
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +28,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
+        // Seu código busca por email, então o login deve ser o email
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
     }
@@ -49,5 +54,29 @@ public class ApplicationConfig {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    // --- correção login  ---
+
+    @Bean
+    public CommandLineRunner createAdminUser(PasswordEncoder encoder) {
+        return args -> {
+            String emailAdmin = "admin@test.com";
+
+            // Verifica
+            if (userRepository.findByEmail(emailAdmin).isEmpty()) {
+                User admin = new User();
+
+                // Ajuste
+                admin.setName("Administrador"); // ou setFirstname, etc.
+                admin.setEmail(emailAdmin);
+
+                // Criptografar a senha antes de salvar
+                admin.setPassword(encoder.encode("password123"));
+
+                userRepository.save(admin);
+                System.out.println("✅ USUÁRIO DE TESTE CRIADO: " + emailAdmin + " / password123");
+            }
+        };
     }
 }
