@@ -4,6 +4,8 @@
 
 **Cargo Pretendido:** Analista de Tecnologia da Informação
 
+**Projeto desenvolvido:** Projeto Desenvolvedor Back End
+
 ---
 
 ## Visão Geral
@@ -38,10 +40,6 @@ O projeto foi construído utilizando as seguintes tecnologias principais:
 * Ordenação alfabética (ascendente/descendente) na listagem de artistas.
 * Paginação otimizada na consulta de álbuns.
 
-### Armazenamento e Integração (MinIO)
-* Upload de imagens para capas de álbuns.
-* Geração de links pré-assinados (Presigned URLs) com validade de 30 minutos para visualização segura das imagens.
-
 ### Monitoramento e Versionamento
 * Endpoints versionados (ex: /api/v1/...).
 * Health checks via Spring Actuator.
@@ -74,19 +72,18 @@ O projeto está totalmente conteinerizado para facilitar a execução. Siga os p
 
 Após a inicialização, os seguintes serviços estarão disponíveis:
 
-| Serviço | URL | Credenciais / Notas |
-| :--- | :--- | :--- |
-| **Swagger UI (Documentação)** | http://localhost:8080/swagger-ui.html | Utilize o token JWT para testar endpoints protegidos. |
-| **MinIO Console** | http://localhost:9001 | Usuário: `minioadmin` / Senha: `minioadmin` |
-| **API Endpoint Base** | http://localhost:8080/api/v1 | - |
-| **Console H2** | http://localhost:8080/h2-console | JDBC URL: `jdbc:h2:mem:musicdb` |
+| Serviço | URL | Credenciais / Notas                                                                            |
+| :--- | :--- |:-----------------------------------------------------------------------------------------------|
+| **Swagger UI (Documentação)** | http://localhost:8080/swagger-ui.html | Utilize o token JWT para gerar token utilize: username: admin@test.com e password: password123 |
+| **MinIO Console** | http://localhost:9001 | Usuário: `minioadmin` / Senha: `minioadmin`                                                    |                                                                                             
+| **Console H2** | http://localhost:8080/h2-console | Driver Class: org.h2.Driver /  JDBC URL: `jdbc:h2:mem:musicdb` /User Name: sa                  |
 
 ## Guia Rápido de Teste
 
 Para testar o fluxo completo da aplicação via Swagger ou Postman:
 
 1.  **Registrar um Usuário:**
-    Envie uma requisição POST para `/api/v1/auth/register` com os dados do usuário.
+    Envie uma requisição POST para `/api/v1/auth/register` com os dados do usuário. Utilize: username: admin@test.com e password: password123.
 
 2.  **Autenticar (Login):**
     Envie uma requisição POST para `/api/v1/auth/authenticate`. O retorno conterá o `access_token`.
@@ -129,3 +126,6 @@ A arquitetura de segurança utiliza JWT (JSON Web Token) sem persistência de se
 A garantia de qualidade foi dividida em níveis:
 * **Testes de Integração:** Utilização de MockMvc para simular requisições HTTP reais e validar comportamentos de segurança (códigos 401/403) e configurações de CORS.
 * **Testes Unitários:** Utilização de Mockito para isolar serviços externos (como o MinIO), garantindo que a lógica de negócio seja validada independentemente da disponibilidade da infraestrutura.
+
+### Correções que não foram realizadas
+Realizar o upload da imagem, somente via banco **BUCKET_NAME = "music-covers"**
