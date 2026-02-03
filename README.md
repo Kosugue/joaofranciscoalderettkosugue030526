@@ -129,3 +129,8 @@ A garantia de qualidade foi dividida em níveis:
 
 ### Correções que não foram realizadas
 Realizar o upload da imagem, somente via banco **BUCKET_NAME = "music-covers"**
+
+### Capturas de Tela
+
+Autenticação e geração Token
+![imagem_1.png](imagens/imagem_1.png)
