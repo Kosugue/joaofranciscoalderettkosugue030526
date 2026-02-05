@@ -45,6 +45,10 @@ O projeto foi construído utilizando as seguintes tecnologias principais:
 * Health checks via Spring Actuator.
 * Documentação interativa via Swagger UI.
 
+## Correções que não foram realizadas
+* Realizar o upload da imagem, somente via banco **BUCKET_NAME = "music-covers"**.
+* Relacionamento realizado foi de 1:N Artist → Albums precisava ser N:N
+
 ## Pré-requisitos
 
 Para executar este projeto, certifique-se de ter instalado em sua máquina:
@@ -108,10 +112,14 @@ A organização do código fonte segue o padrão de camadas:
 
 ## Decisões Arquiteturais e Design
 
-Esta seção documenta as escolhas técnicas adotadas para garantir escalabilidade, segurança e performance da aplicação.
-
-### Estratégia de Armazenamento (Offloading)
-Foi adotado o padrão de URLs pré-assinadas (Presigned URLs) via MinIO. Em vez de trafegar arquivos binários (imagens) diretamente pela API Java, o backend gera apenas um link temporário e seguro para o cliente. Isso reduz drasticamente o consumo de memória da JVM e delega a transferência de dados pesados diretamente para o serviço de storage, permitindo que a API mantenha alta disponibilidade para regras de negócio.
+| Decisões Arquiteturais | Justificativa                  |
+|------------------------|--------------------------------|
+| H2 + Flyway            | Demo rápida + migrações        |
+| MinIO local            | S3-compatível, Docker nativo   |
+| JWT Stateless          | Escala horizontal sem sessão   |
+| Bucket4j               | Rate limit distribuível        |
+| N:N Artist-Album       | Flexível (álbum multi-artistas)|
+| WebSocket in-memory    | Mais Simples                   |
 
 ### Otimização de Containers (Multi-Stage Build)
 O Dockerfile utiliza a estratégia de Multi-Stage Build em dois estágios:
@@ -127,6 +135,5 @@ A garantia de qualidade foi dividida em níveis:
 * **Testes de Integração:** Utilização de MockMvc para simular requisições HTTP reais e validar comportamentos de segurança (códigos 401/403) e configurações de CORS.
 * **Testes Unitários:** Utilização de Mockito para isolar serviços externos (como o MinIO), garantindo que a lógica de negócio seja validada independentemente da disponibilidade da infraestrutura.
 
-### Correções que não foram realizadas
-Realizar o upload da imagem, somente via banco **BUCKET_NAME = "music-covers"**
+
 
